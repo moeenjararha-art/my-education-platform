@@ -20,11 +20,20 @@
   <p id="message"></p>
 
   <script>
-    function login() {
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
       document.getElementById("message").textContent =
-        "صفحة تسجيل الدخول جاهزة، وسيتم ربطها بقاعدة البيانات في الخطوة التالية.";
+        "يرجى إدخال البريد الإلكتروني وكلمة المرور.";
+      return;
     }
-  </script>
+
+    document.getElementById("message").textContent =
+      "تم استلام بيانات تسجيل الدخول.";
+  }
+    </script>
 
 </body>
 </html>
