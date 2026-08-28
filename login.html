@@ -19,21 +19,27 @@
 
   <p id="message"></p>
 
-  <script>
-  function login() {
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const supabaseClient = supabase.createClient(
+    "https://ytyucdvqgkphkfoleuqk.supabase.co",
+    "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9"
+  );
+
+  async function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (!email || !password) {
-      document.getElementById("message").textContent =
-        "يرجى إدخال البريد الإلكتروني وكلمة المرور.";
-      return;
-    }
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
 
     document.getElementById("message").textContent =
-      "تم استلام بيانات تسجيل الدخول.";
+      error ? error.message : "تم تسجيل الدخول بنجاح ✅";
   }
-    </script>
-
+</script>
 </body>
 </html>
