@@ -16,7 +16,8 @@
   <br><br>
 
   <button onclick="login()">دخول</button>
-
+<br><br>
+<button onclick="signup()">إنشاء حساب</button>
   <p id="message"></p>
 
 
@@ -40,6 +41,17 @@
     document.getElementById("message").textContent =
       error ? error.message : "تم تسجيل الدخول بنجاح ✅";
   }
-</script>
+async function signup() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password
+  });
+
+  document.getElementById("message").textContent =
+    error ? error.message : "تم إنشاء الحساب بنجاح ✅";
+    }</script>
 </body>
 </html>
