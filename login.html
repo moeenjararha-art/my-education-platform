@@ -39,8 +39,7 @@
     });
 
     document.getElementById("message").textContent =
-      error ? error.message : "تم تسجيل الدخول بنجاح ✅";
-  }
+      error ? error.message : (window.location.href = "dashboard.html");
 async function signup() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
