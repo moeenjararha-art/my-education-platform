@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الطالب</title>
+</head>
+
+<body>
+  <h1>🎓 لوحة الطالب</h1>
+
+  <p>أهلًا بك في منصتك التعليمية.</p>
+
+  <h2>دوراتي</h2>
+
+  <div>
+    <h3>📚 الدورة الأولى</h3>
+    <p>محتوى الدورة سيظهر هنا قريبًا.</p>
+  </div>
+
+  <div>
+    <h3>📖 الدورة الثانية</h3>
+    <p>محتوى الدورة سيظهر هنا قريبًا.</p>
+  </div>
+
+  <button onclick="logout()">تسجيل الخروج</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      "https://ytyucdvqgkphkfoleuqk.supabase.co",
+ "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9"
+    );
+
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
