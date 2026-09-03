@@ -43,6 +43,12 @@
       font-size: 18px;
       line-height: 1.8;
     }
+
+    #message {
+      text-align: center;
+      margin: 20px;
+      font-size: 18px;
+    }
   </style>
 </head>
 
@@ -54,19 +60,66 @@
 
     <h1>🎥 الدرس الأول: مقدمة الدورة</h1>
 
-    <video controls playsinline>
-      <source src="https://ytyucdvqgkphkfoleuqk.supabase.co/storage/v1/object/sign/videos/VID-20260825-WA0001.mp4?token=eyJraWQiOiJjOWEyMGI3ZS04ODg0LTQ3NGYtOTk1Yi0wZDM2MzVlY2U1ZGUiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJ2aWRlb3MvVklELTIwMjYwODI1LVdBMDAwMS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg4NDQ5ODcyLCJleHAiOjE3ODkwNTQ2NzJ9.qpT-51JLQVdTcRcwjcLZeGI6ESDmxI6ok1zAbBnN7aqjV0aJjmLvV7op3yoXkwTuASisrfaK8f-lDV-5OE0FAQ" type="video/mp4">
-      متصفحك لا يدعم تشغيل الفيديو.
-    </video>
+    <div id="message">جاري التحقق من الدخول...</div>
+
+    <video id="video" controls playsinline style="display:none;"></video>
 
     <div class="description">
       <h2>مقدمة الدورة</h2>
-      <p>
-        أهلاً بك في الدرس الأول.
-      </p>
+      <p>أهلاً بك في الدرس الأول.</p>
     </div>
 
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = "https://ytyucdvqgkphkfoleuqk.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9";
+
+    const supabaseClient = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    async function loadVideo() {
+
+      const { data: { session } } =
+        await supabaseClient.auth.getSession();
+
+      if (!session) {
+        document.getElementById("message").textContent =
+          "يجب تسجيل الدخول لمشاهدة هذا الدرس.";
+        return;
+      }
+
+      const { data, error } =
+        await supabaseClient.storage
+          .from("videos")
+          .createSignedUrl(
+            "VID-20260825-WA0001.mp4",
+            3600
+          );
+
+      if (error) {
+        console.error(error);
+        document.getElementById("message").textContent =
+          "تعذر تحميل الفيديو.";
+        return;
+      }
+
+      const video = document.getElementById("video");
+
+      video.src = data.signedUrl;
+      video.style.display = "block";
+
+      document.getElementById("message").textContent =
+        "الفيديو جاهز للمشاهدة.";
+    }
+
+    loadVideo();
+  </script>
 
 </body>
 </html>
