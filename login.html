@@ -16,44 +16,49 @@
   <br><br>
 
   <button onclick="login()">دخول</button>
-<br><br>
-<button onclick="signup()">إنشاء حساب</button>
+  <br><br>
+
+  <button onclick="signup()">إنشاء حساب</button>
+
   <p id="message"></p>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseClient = supabase.createClient(
+      "https://ytyucdvqgkphkfoleuqk.supabase.co",
+      "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9"
+    );
 
-<script>
-  const supabaseClient = supabase.createClient(
-    "https://ytyucdvqgkphkfoleuqk.supabase.co",
-    "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9"
-  );
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-  async function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
 
-    const { error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
+      if (error) {
+        document.getElementById("message").textContent = error.message;
+      } else {
+        window.location.href = "dashboard.html";
+      }
+    }
 
-    if (error) {
-  document.getElementById("message").textContent = error.message;
-} else {
-  window.location.href = "dashboard.html";
-}
-async function signup() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+    async function signup() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-  const { error } = await supabaseClient.auth.signUp({
-    email: email,
-    password: password
-  });
+      const { error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
 
-  document.getElementById("message").textContent =
-    error ? error.message : "تم إنشاء الحساب بنجاح ✅";
-    }</script>
+      document.getElementById("message").textContent =
+        error ? error.message : "تم إنشاء الحساب بنجاح ✅";
+    }
+  </script>
+
 </body>
 </html>
