@@ -39,87 +39,88 @@
       margin-top: 20px;
     }
 
+    #message {
+      text-align: center;
+      margin: 25px 0;
+      font-size: 18px;
+    }
+
     .description {
       font-size: 18px;
       line-height: 1.8;
-    }
-
-    #message {
-      text-align: center;
-      margin: 20px;
-      font-size: 18px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <a href="course1.html" class="back">← العودة إلى الدورة</a>
+  <a href="course1.html" class="back">← العودة إلى الدورة</a>
 
-    <h1>🎥 الدرس الأول: مقدمة الدورة</h1>
+  <h1>🎥 الدرس الأول: مقدمة الدورة</h1>
 
-    <div id="message">جاري التحقق من الدخول...</div>
+  <div id="message">جاري التحقق من تسجيل الدخول...</div>
 
-    <video id="video" controls playsinline style="display:none;"></video>
+  <video id="video" controls playsinline style="display:none;"></video>
 
-    <div class="description">
-      <h2>مقدمة الدورة</h2>
-      <p>أهلاً بك في الدرس الأول.</p>
-    </div>
-
+  <div class="description">
+    <h2>مقدمة الدورة</h2>
+    <p>أهلاً بك في الدرس الأول.</p>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</div>
 
-  <script>
-    const SUPABASE_URL = "https://ytyucdvqgkphkfoleuqk.supabase.co";
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9";
+<script>
+  const SUPABASE_URL =
+    "https://ytyucdvqgkphkfoleuqk.supabase.co";
 
-    const supabaseClient = supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9";
 
-    async function loadVideo() {
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-      const { data: { session } } =
-        await supabaseClient.auth.getSession();
+  async function loadVideo() {
 
-      if (!session) {
-        document.getElementById("message").textContent =
-          "يجب تسجيل الدخول لمشاهدة هذا الدرس.";
-        return;
-      }
+    const { data: { session } } =
+      await supabaseClient.auth.getSession();
 
-      const { data, error } =
-        await supabaseClient.storage
-          .from("videos")
-          .createSignedUrl(
-            "VID-20260825-WA0001.mp4",
-            3600
-          );
+    const message = document.getElementById("message");
+    const video = document.getElementById("video");
 
-      if (error) {
-        console.error(error);
-        document.getElementById("message").textContent =
-          "تعذر تحميل الفيديو.";
-        return;
-      }
-
-      const video = document.getElementById("video");
-
-      video.src = data.signedUrl;
-      video.style.display = "block";
-
-      document.getElementById("message").textContent =
-        "الفيديو جاهز للمشاهدة.";
+    if (!session) {
+      message.textContent =
+        "🔒 يجب تسجيل الدخول لمشاهدة هذا الدرس.";
+      return;
     }
 
-    loadVideo();
-  </script>
+    const { data, error } =
+      await supabaseClient.storage
+        .from("videos")
+        .createSignedUrl(
+          "VID-20260825-WA0001.mp4",
+          3600
+        );
+
+    if (error) {
+      console.error(error);
+      message.textContent =
+        "❌ تعذر تحميل الفيديو.";
+      return;
+    }
+
+    video.src = data.signedUrl;
+    video.style.display = "block";
+    message.textContent = "✅ الفيديو جاهز للمشاهدة.";
+  }
+
+  loadVideo();
+</script>
 
 </body>
 </html>
