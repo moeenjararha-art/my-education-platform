@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>لوحة الطالب</title>
 </head>
-
 <body>
-  <h1>🎓 لوحة الطالب</h1>
 
+  <h1>🎓 لوحة الطالب</h1>
   <p>أهلًا بك في منصتك التعليمية.</p>
 
   <h2>دوراتي</h2>
@@ -30,13 +29,24 @@
   <script>
     const supabaseClient = supabase.createClient(
       "https://ytyucdvqgkphkfoleuqk.supabase.co",
- "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9"
+      "sb_publishable_GuLbzl6s862iqJ-7Ic893w_Ls19dWY9"
     );
+
+    async function checkUser() {
+      const { data } = await supabaseClient.auth.getSession();
+
+      if (!data.session) {
+        window.location.href = "login.html";
+      }
+    }
 
     async function logout() {
       await supabaseClient.auth.signOut();
       window.location.href = "login.html";
     }
+
+    checkUser();
   </script>
+
 </body>
 </html>
