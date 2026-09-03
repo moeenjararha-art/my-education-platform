@@ -8,38 +8,47 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f7fb;
+      background: #f4f6f8;
       margin: 0;
-      padding: 30px 20px;
+      padding: 20px;
+      text-align: center;
     }
 
     .container {
       max-width: 900px;
       margin: auto;
-    }
-
-    .video-box {
       background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px #ddd;
-      margin-top: 25px;
-    }
-
-    .video-placeholder {
-      background: #111;
-      color: white;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      font-size: 20px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 3px 15px #ddd;
     }
 
     .back {
-      color: #2563eb;
+      display: block;
+      text-align: right;
       text-decoration: none;
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-size: 17px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    video {
+      width: 100%;
+      max-width: 800px;
+      border-radius: 12px;
+      background: black;
+      display: block;
+      margin: auto;
+    }
+
+    .description {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.8;
     }
   </style>
 </head>
@@ -52,18 +61,21 @@
 
     <h1>🎥 الدرس الأول: مقدمة الدورة</h1>
 
-    <div class="video-box">
+    <video controls playsinline>
+      <source
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        type="video/mp4"
+      >
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
 
-      <div class="video-placeholder">
-        الفيديو سيظهر هنا
-      </div>
-
+    <div class="description">
       <h2>مقدمة الدورة</h2>
 
       <p>
-        أهلاً بك في الدرس الأول. هنا سيظهر الفيديو التعليمي الخاص بهذا الدرس.
+        أهلاً بك في الدرس الأول.
+        هذا فيديو تجريبي للتأكد من أن تشغيل الفيديو يعمل بشكل صحيح.
       </p>
-
     </div>
 
   </div>
