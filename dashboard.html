@@ -4,25 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>لوحة الطالب</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .course {
+      background: white;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #ddd;
+    }
+
+    .button {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .logout {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #555;
+      color: white;
+      margin-top: 15px;
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>🎓 لوحة الطالب</h1>
-  <p>أهلًا بك في منصتك التعليمية.</p>
+  <div class="container">
 
-  <h2>دوراتي</h2>
+    <h1>🎓 لوحة الطالب</h1>
 
-  <div>
-    <h3>📚 الدورة الأولى</h3>
-    <p>محتوى الدورة سيظهر هنا قريبًا.</p>
+    <p>أهلًا بك في منصتك التعليمية.</p>
+
+    <h2>دوراتي</h2>
+
+    <div class="course">
+      <h3>📚 الدورة الأولى</h3>
+      <p>دورة تعليمية منظمة تحتوي على الدروس والفيديوهات.</p>
+      <a href="courses.html" class="button">دخول إلى الدورة</a>
+    </div>
+
+    <div class="course">
+      <h3>📖 الدورة الثانية</h3>
+      <p>هذه الدورة ستتم إضافتها لاحقًا.</p>
+    </div>
+
+    <button class="logout" onclick="logout()">تسجيل الخروج</button>
+
   </div>
-
-  <div>
-    <h3>📖 الدورة الثانية</h3>
-    <p>محتوى الدورة سيظهر هنا قريبًا.</p>
-  </div>
-
-  <button onclick="logout()">تسجيل الخروج</button>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
